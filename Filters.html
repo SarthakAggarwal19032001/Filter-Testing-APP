@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html ng-app="app">
+    <head>
+        <title>Filters in AngularJS</title>
+        <script src="lib/angular.js"></script>
+        <script src="js/controllers.js"></script>
+        <script src="js/app.js"></script>
+        <link href="Style/Style.css" rel="stylesheet"/>
+    </head>
+    <body ng-controller="userCtrl" style="background-image: url(images/Angular-js-Development.jpg) ;">
+        <section ng-class="{font-size:fs redClass:true}">
+        <header style="color: red;"><h1 style="text-align: center;">{{heading}}</h1></header>
+        <h2>Report On: {{title}}</h2>
+        </section>
+        <section style="width:50%">
+        <label for="sortby">Sort By:</label>
+        <select ng-model=sortby>
+            <option value="leveloftraining">Level Of Training</option>
+            <option value="costoftraining">Cost Of Training</option>
+            <option value="username">Username</option>
+            <option value="courseselected">Course Selected</option>
+        </select> </br></br>
+        <label>Filter By:</label>
+        <input type="text" ng-model="filterby"/></br></br></br></br>
+    </section>
+    <section>
+        <form>
+            <section class="css-table">
+                <section class="css-table-row" style="text-decoration: solid; color: blue;">
+                    <section  class="css-table-cell">
+                        <label>S1 NO.&nbsp;&nbsp;</label>
+                    </section>
+                    <section class="css-table-cell">
+                        <label>Username&nbsp;&nbsp;&nbsp;</label>
+                    </section>
+                    <section class="css-table-cell">
+                        <label>Course Selected&nbsp;&nbsp;&nbsp;</label>
+                    </section>
+                    <section class="css-table-cell">
+                        <label>Level Of Training&nbsp;&nbsp;&nbsp;</label>
+                    </section>
+                    <section class="css-table-cell">
+                        <label>Date Of Registration&nbsp;&nbsp;&nbsp;</label>
+                    </section>
+                    <section class="css-table-cell">
+                        <label>Cost Of Training&nbsp;</label>
+                    </section>
+                </section>
+                <section class="css-table-row" ng-repeat="request in requests|orderBy:sortby|filter:filterby">
+                    <section class="css-table-cell">
+                        <label>{{$index+1}}</label>
+                    </section>
+                    <section class="css-table-cell">
+                        <label>{{request.username}}</label>
+                    </section>
+                    <section class="css-table-cell">
+                        <label>{{request.courseselected|uppercase | limitTo:"3"}}</label>
+                    </section>
+                    <section class="css-table-cell">
+                        <label>{{request.leveloftraining|lowercase}}</label>
+                    </section>
+                    <section class="css-table-cell">
+                        <label>{{request.dateofregistration|date:'shortdate'}}</label>
+                    </section>
+                    <section class="css-table-cell">
+                        <label>{{request.costoftraining|currency:"Rs."}}</label>
+                    </section>
+                </section>
+            </section>
+        </form>
+    </section>
+    <br>
+    <section style="text-align: center;"><h3 style="color: blue;">Total Number of requests: {{requests.length|number:2}}</h3></section>
+    </body>
+</html>
